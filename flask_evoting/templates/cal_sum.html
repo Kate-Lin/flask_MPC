@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计票</title>
+</head>
+<body>
+    <h3>结果如下</h3>
+    {% for result in results %}
+        <p>候选人{{ results.index(result) + 1 }}得票数：{{ result }}</p>
+    {% endfor %}
+    <p>胜出的候选人是</p>
+</body>
+</html>

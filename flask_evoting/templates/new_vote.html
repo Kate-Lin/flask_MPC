@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建投票</title>
+</head>
+<body>
+{% if remain is none %}
+    <form action="{{ url_for('create_vote') }}" method="POST">
+        <dl>
+            <dt>特权码：
+            <dd><input type=password name=check_num>
+            <dt>投票人数
+            <dd><input type=text name=voter_num>
+            <dt>候选人数
+            <dd><input type=text name=candidate_num>
+            <dt>胜选人数</dt>
+            <dd><input type=text name=win_num></dd>
+            <dd><input type=submit value='创建'>
+        </dl>
+    </form>
+{% else %}
+    <p>当前还有{{ remain }}人未投票，可选择自动生成投票（仅供演示使用）</p>
+<form action="{{ url_for('process_manage') }}" method="POST">
+    <dl>
+        <dt>可选择以下操作：（只可选一个）</dt>
+        <dd><input type="checkbox" name="manage" value='reset' />重置投票</dd>
+        <dd><input type="checkbox" name="manage" value='auto' />自动生成其他选票</dd>
+        <dt>特权码：
+        <dd><input type=password name=check_num>
+        <dd><input type=submit value='操作'>
+    </dl>
+</form>
+{% endif %}
+</body>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+<script>
+$('form').delegate('input[type="checkbox"][name^="manage"]', 'click', function (e){
+    var boxes = $('input[type="checkbox"][name^="manage"]',this.form);
+    boxes.filter(':not(:checked)').prop('disabled', boxes.filter(':checked').length >= 1);
+});
+</script>
+</html>
