@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本地计票</title>
+</head>
+<body>
+<form action="{{ url_for('save_sum') }}" method="POST">
+    <input id="name" name="name" value={{ user }} ><p>号用户</p>
+    请上传您的选票：（本人持有的选票片段只用于本地计算，不会上传至服务器）<br>
+    <input id="upfile" name="upfile" type="file" multiple="multiple" />
+    <p>请确认您上传的选票信息：</p><div id="result"></div>
+    <p>您计算生成的部分选票总数：</p><input id="total" name="total"></input>
+    <input type="submit" value="提交分片和"/>
+</form>
+
+</body>
+<script type="text/javascript">
+
+	 document.getElementById("upfile").addEventListener("change",function () {
+
+		var file = document.getElementById('upfile').files[0];
+
+		console.log(file);
+
+		var reader = new FileReader();
+
+		console.log(reader);
+
+        reader.readAsText(file,'utf-8');
+
+ 			reader.onload = function () {
+                document.getElementById('result').innerHTML = reader.result;
+                document.getElementById('total').value = Number(reader.result)+{{ remain }}
+            }
+    });
+</script>
+</html>

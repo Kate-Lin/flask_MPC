@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票初始化</title>
+</head>
+<body>
+    <h1>请选择您的角色：</h1>
+    <a href="{{ url_for('newvote') }}"><h3>投票发起人</h3></a>
+    <a href="{{ url_for('show_vote') }}"><h3>投票人</h3></a>
+    <br><br>
+    <a href={{ url_for('check_before_add') }}><h3>本地计票</h3></a>
+    <a href="{{ url_for('show_result') }}"><h3>显示结果</h3></a>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/flask_evoting.iml" filepath="$PROJECT_DIR$/.idea/flask_evoting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/flask_MPC.iml" filepath="$PROJECT_DIR$/.idea/flask_MPC.iml" />
     </modules>
   </component>
 </project>

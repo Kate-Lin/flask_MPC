@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用本地数据加密测试</title>
+</head>
+<body>
+<p>目前后台有已训练完毕的机器学习模型若干</p>
+<p>为保障模型持有者的隐私（自己训练的模型参数不泄露给他人）</p>
+<p>并保障数据持有者的隐私（自己持有的数据不泄露给他人）</p>
+<p>模型参数被同态加密算法转化为密文，由用户在本地进行密文运算，将密文结果传回给服务器解密，获得真实结果。</p>
+<form action="{{ url_for('calculate_score') }}" method="POST" enctype="multipart/form-data">
+    <dl>
+        <dt>请选择加密参数的同态加密算法：</dt>
+        <dd><input type="checkbox" name="homo" value='pai' />Paillier</dd>
+        <dd><input type="checkbox" name="homo" value='ckks' />CKKS</dd>
+        <dt>请选择数据集类型：</dt>
+        <dd><input type="checkbox" name="dataset" value='breastcancer' />乳腺癌诊断</dd>
+        <dd><input type="checkbox" name="dataset" value='heart' />心脏病诊断</dd>
+        <dd><input type="checkbox" name="dataset" value='transfusion' />献血预测</dd>
+        <dt>请选择该数据集对应的机器学习模型：</dt>
+        <dd><input type="checkbox" name="model" value='LR' />逻辑回归</dd>
+        <dd><input type="checkbox" name="model" value='SVM' />支持向量机</dd>
+        <dd><input type=submit value='操作'>
+    </dl>
+</form>
+</body>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+<script>
+    $(document).delegate('input[type="checkbox"][name^="homo"]', 'click', function (e){
+        var boxes = $('input[type="checkbox"][name^="homo"]',this.form);
+        boxes.filter(':not(:checked)').prop('disabled', boxes.filter(':checked').length >= 1);
+    });
+    $(document).delegate('input[type="checkbox"][name^="dataset"]', 'click', function (e){
+        var boxes = $('input[type="checkbox"][name^="dataset"]',this.form);
+        boxes.filter(':not(:checked)').prop('disabled', boxes.filter(':checked').length >= 1);
+    });
+     $(document).delegate('input[type="checkbox"][name^="model"]', 'click', function (e){
+        var boxes = $('input[type="checkbox"][name^="model"]',this.form);
+        boxes.filter(':not(:checked)').prop('disabled', boxes.filter(':checked').length >= 1);
+    });
+	 document.getElementById("upfile").addEventListener("change",function () {
+
+		var file = document.getElementById('upfile').files[0];
+
+		console.log(file);
+
+		var reader = new FileReader();
+
+		console.log(reader);
+
+        reader.readAsText(file,'utf-8');
+
+ 			reader.onload = function () {
+                document.getElementById('data').value = reader.result;
+            }
+    });
+</script>
+</html>

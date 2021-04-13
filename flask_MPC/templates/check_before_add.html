@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票人登录</title>
+</head>
+<body>
+    <form action="{{ url_for('local_check') }}" method="POST">
+        <dl>
+            <dt>请输入投票人验证码：
+            <dd><input type=password name=check_num>
+            <dd><input type=submit value='校验'>
+        </dl>
+    </form>
+</body>
+</html>

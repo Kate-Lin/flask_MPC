@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>参与投票</title>
+</head>
+<body>
+            特权码：<input type=password name=check_num id="wenben">
+            请投票：
+            {% for i in range(1,can_num) %}
+                <dd><input type="checkbox" name="can" value={{ i }} />{{ i }}号候选人</dd>
+            {% endfor %}
+            <p>注意：最多可选{{ win }}个</p>
+            <p>共有{{ voter_num }}个投票人</p>
+            <input type=submit value='分片' onclick="exportRaw()">
+            <form action="{{ url_for('vote') }}" method="POST">
+                <input type=password name='check_num' id="check_sum">
+                <textarea name="vote_part" id="part"></textarea>
+                <input type=submit value='提交选票'>
+            </form>
+</body>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+<script>
+     var split_vote = new Array();
+     var name = "NO";
+     var n = {{ voter_num }};
+     var m = {{ can_num }}-1;
+     var k = Math.floor(Math.log2(n))+1;
+                $(document).delegate('input[type="checkbox"][name^="can"]', 'click', function (e){
+                        var boxes = $('input[type="checkbox"][name^="can"]',this.form);
+                        boxes.filter(':not(:checked)').prop('disabled', boxes.filter(':checked').length >= {{ win }});
+                });
+                function randomNum(minNum,maxNum){
+                    switch(arguments.length){
+                    case 1:
+                        return parseInt(Math.random()*minNum+1,10);
+                        break;
+                    case 2:
+                        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+                        break;
+                    default:
+                        return 0;
+                        break;
+                    }
+                }
+                function fakeClick(obj) {
+                  var ev = document.createEvent("MouseEvents");
+                  ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                  obj.dispatchEvent(ev);
+                }
+
+                function exportRaw() {
+                    name = document.getElementById("wenben").value;
+                    var urlObject = window.URL || window.webkitURL || window;
+                    obj = document.getElementsByName("can");
+                    var len = obj.length;
+                    var choice = [];
+                    for(i = 0; i < len; i++)
+                    {
+                        if(obj[i].checked == true)
+                        {
+                            choice.push(obj[i].value);
+                        }
+                    }
+                    alert(choice);
+                    var pi = 0;
+                    for(i=0;i<choice.length;i++)
+                    {
+                        pi += 2**((m-choice[i])*k);
+                    }
+                    alert(pi);
+                    split_vote = [];
+                    for(i = 0; i < n-1;i++)
+                    {
+                        vi = randomNum(-10000,10000)
+                        pi -= vi
+                        split_vote.push(vi)
+                    }
+                    var export_blob = new Blob([pi]);
+                    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+                    save_link.href = urlObject.createObjectURL(export_blob);
+                    save_link.download = name;
+                    fakeClick(save_link);
+                    var nameDOM = document.getElementById('check_sum');
+                    nameDOM.value = name;
+                    var voteDOM = document.getElementById('part');
+                    voteDOM.value = split_vote;
+                }
+    console.log('test')
+</script>
+</html>
