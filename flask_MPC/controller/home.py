@@ -13,17 +13,17 @@ import random
 
 @app.route('/')
 def show_home():
-    return render_template('home.html')
+    return render_template('MPC_HOME.html')
 
 
 @app.route('/evoting')
 def evoting():
-    return render_template('evoting_home.html')
+    return render_template('EVOTING_INDEX.html')
 
 
 @app.route('/AI')
 def AI():
-    return render_template('AI_home.html')
+    return render_template('AI_INDEX.html')
 
 @app.route('/AI/local_test')
 def show_local():
