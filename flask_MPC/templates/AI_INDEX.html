@@ -34,18 +34,20 @@
     opacity: 0.75;
     }
     </style>
-    <link href="../static/css/carousel.css" rel="stylesheet">
-    <link href="../static/css/pricing.css" rel="stylesheet">
+    <link href="../static/css/MPC_style.css" rel="stylesheet">
 </head>
 <body>
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark this-nav" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);">
-    <a class="navbar-brand" href="#">首页</a>
+    <a class="navbar-brand" href="{{ url_for('show_home') }}">首页</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('AI') }}">机器学习<span class="sr-only">(current)</span></a>
+          </li>
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">后台生成训练模型<span class="caret"></span></a>

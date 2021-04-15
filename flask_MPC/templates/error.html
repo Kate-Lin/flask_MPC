@@ -2,9 +2,191 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Shen Lin">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>{{ message }}</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/key-fill.svg" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/carousel/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .jumbotron {
+            color:#ffffff;
+            background: linear-gradient(rgba(51,51,51,0.85) 0%, #212121 100%);
+        }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+        img {
+    opacity: 0.75;
+    }
+    </style>
+    <link href="../static/css/MPC_style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>ERROR!!!</h1>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark this-nav" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);">
+    <a class="navbar-brand" href="{{ url_for('show_home') }}">首页</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('evoting') }}">电子投票 <span class="sr-only">(current)</span></a>
+          </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false">投票发起人 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('newvote') }}">创建投票</a></li>
+            <li><button class="dropdown-item"  data-toggle="modal" data-target="#reset-modal">重置投票</button></li>
+                <li><button class="dropdown-item"  data-toggle="modal" data-target="#auto-modal">生成模拟数据</button></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false">投票人 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a href="{{ url_for('show_vote') }}" class="dropdown-item">投票</a></li>
+            <li><a href="#" class="dropdown-item">计票</a></li>
+            <li><a href="#" class="dropdown-item">显示结果</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+    <div id="reset-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>×</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h5 class="text-center">请输入创建人验证码</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                            <div class="form-group">
+                                <label for="check_num">验证码</label>
+                                <input class="form-control" type="password" placeholder="64位字母或数字" name='check_num1'
+                                id = 'check_num1'>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="button" id="reset_vote">重置</button>
+                                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="auto-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>×</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h5 class="text-center">请输入创建人验证码</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                            <div class="form-group">
+                                <label for="check_num">验证码</label>
+                                <input class="form-control" type="password" placeholder="64位字母或数字" name='check_num2'
+                                id = 'check_num2'>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="button" id="auto_vote">随机生成</button>
+                                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">输入信息有误，{{ message }}</h1>
+            <hr class="div1">
+            <p>请检查您的操作和输入！</p>
+            <p><strong>点击</strong><a href="{{ url_for('evoting') }}">这里</a>返回首页</p>
+        </div>
+    </div>
 </body>
+<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script type = "text/javascript" >
+    var jq=jQuery.noConflict();
+    $('#reset_vote').on('click',
+    function() {
+    //取变量
+        var check_num= $("input[name='check_num1']").val();
+        var data = {
+            data: JSON.stringify(
+                {
+                    'check':check_num,
+                }
+            )
+        };
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            data:data,
+            url: '/evoting/check_set_auth',
+            success: function (data) {
+                alert(data.message);
+                location.href = '/evoting';
+            }
+        });
+
+    });
+
+    $('#auto_vote').on('click',
+    function() {
+    //取变量
+        var check_num= $("input[name='check_num2']").val();
+        var data = {
+            data: JSON.stringify(
+                {
+                    'check':check_num,
+                }
+            )
+        };
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            data:data,
+            url: '/evoting/check_auto_auth',
+            success: function (data) {
+                alert(data.message);
+                location.href = '/evoting';
+            }
+        });
+
+    });
+</script>
 </html>

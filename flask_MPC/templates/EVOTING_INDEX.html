@@ -1,74 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Shen Lin">
-    <meta name="generator" content="Hugo 0.80.0">
-    <title>电子投票首页</title>
-    <link rel="icon" type="image/x-icon" href="../static/images/key-fill.svg" />
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/carousel/">
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <style>
-        .jumbotron {
-            color:#ffffff;
-            background: linear-gradient(rgba(51,51,51,0.85) 0%, #212121 100%);
-        }
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-
-      }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-        img {
-    opacity: 0.75;
-    }
-    </style>
-    <link href="../static/css/carousel.css" rel="stylesheet">
-    <link href="../static/css/pricing.css" rel="stylesheet">
-</head>
-<body>
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark this-nav" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);">
-    <a class="navbar-brand" href="#">首页</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-          role="button" aria-haspopup="true" aria-expanded="false">投票发起人 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-            <li><a href="#" class="dropdown-item">创建投票</a></li>
-            <li><a href="#" class="dropdown-item">重置投票</a></li>
-            <li><a href="#" class="dropdown-item">生成模拟数据</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-          role="button" aria-haspopup="true" aria-expanded="false">投票人 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-            <li><a href="#" class="dropdown-item">投票</a></li>
-            <li><a href="#" class="dropdown-item">计票</a></li>
-            <li><a href="#" class="dropdown-item">显示结果</a></li>
-            </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-<main id = 'content' role="main" >
+{% extends 'basic_template.html' %}
+{% block title %}
+<title>电子投票首页</title>
+{% endblock %}
+{% block main_page %}
     <div class="jumbotron" >
         <div class="container bd-lead">
             <h1 class="font-weight-bold">安全多方求和电子投票系统</h1>
@@ -97,9 +31,9 @@
         <h4 class="card-title pricing-card-title"><small >可进行以下操作:</small></h4>
 
           <div class="btn-group-justified list-unstyled mt-3 mb-4" role="group">
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">创建投票</a>
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">重置投票</a>
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">模拟数据</a>
+              <a href="{{ url_for('newvote') }}" class="btn btn-outline-primary btn-xl" role="button">创建投票</a>
+              <button class="btn btn-outline-primary btn-xl" role="button"  data-toggle="modal" data-target="#reset-modal">重置投票</button>
+              <button class="btn btn-outline-primary btn-xl" role="button"  data-toggle="modal" data-target="#auto-modal">模拟数据</button>
           </div>
       </div>
     </div>
@@ -111,7 +45,7 @@
         <h4 class="card-title pricing-card-title"><small >可进行以下操作:</small></h4>
 
           <div class="btn-group-justified list-unstyled mt-3 mb-4" role="group">
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">投票</a>
+              <a href="{{ url_for('show_vote') }}" class="btn btn-outline-primary btn-xl"role="button">投票</a>
               <a href="#" class="btn btn-outline-primary btn-xl"role="button">计票</a>
               <a href="#" class="btn btn-outline-primary btn-xl"role="button">公布结果</a>
           </div>
@@ -119,15 +53,4 @@
     </div>
         </div>
     </div>
-</main>
-  <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2017-2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-  </footer>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-</html>
+{% endblock %}

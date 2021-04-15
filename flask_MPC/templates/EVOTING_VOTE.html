@@ -1,27 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>参与投票</title>
-</head>
-<body>
-            特权码：<input type=password name=check_num id="wenben">
-            请投票：
-            {% for i in range(1,can_num) %}
+{% extends 'basic_template.html' %}
+{% block title %}
+<title>投票</title>
+{% endblock %}
+{% block  main_page%}
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">投票人选举</h1>
+            <hr class="div1">
+            <p><strong>请选出您的选择：</strong></p>
+        </div>
+    </div>
+    <div class="col-md-8 order-md-1 container">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="check_num">验证码</label>
+                <input class="form-control" type=password name=check_num id="wenben">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {% for i in range(1,can_num,2) %}
                 <dd><input type="checkbox" name="can" value={{ i }} />{{ i }}号候选人</dd>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-md-6 mb-3">
+                {% for i in range(2,can_num,2) %}
+                <dd><input type="checkbox" name="can" value={{ i }} />{{ i }}号候选人</dd>
+                {% endfor %}
+            </div>
+        </div>
             <p>注意：最多可选{{ win }}个</p>
-            <p>共有{{ voter_num }}个投票人</p>
-            <input type=submit value='分片' onclick="exportRaw()">
-            <form action="{{ url_for('vote') }}" method="POST">
-                <input type=password name='check_num' id="check_sum">
-                <textarea name="vote_part" id="part"></textarea>
-                <input type=submit value='提交选票'>
-            </form>
-</body>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
-<script>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input type=submit value='分片' class="btn btn-primary btn-lg btn-block" onclick="exportRaw()">
+            </div>
+        </div>
+        <form action="{{ url_for('vote') }}" method="POST">
+            <div class="mb-3">
+                <input type=password name='check_num' id="check_sum"style="display: none">
+                <label for="check_num">选票分片结果</label>
+                <textarea class="form-control col-md-6" name='vote_part' id="part"></textarea>
+            </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input type=submit value='提交选票' class="btn btn-primary btn-lg btn-block" >
+            </div>
+        </div>
+        </form>
+    </div>
 
+{% endblock %}
+{% block js %}
+
+<script>
      var split_vote = new Array();
      var name = "NO";
      var n = {{ voter_num }};
@@ -63,13 +94,11 @@
                             choice.push(obj[i].value);
                         }
                     }
-                    alert(choice);
                     var pi = 0;
                     for(i=0;i<choice.length;i++)
                     {
                         pi += 2**((m-choice[i])*k);
                     }
-                    alert(pi);
                     split_vote = [];
                     for(i = 0; i < n-1;i++)
                     {
@@ -77,6 +106,7 @@
                         pi -= vi
                         split_vote.push(vi)
                     }
+                    alert(split_vote)
                     var export_blob = new Blob([pi]);
                     var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
                     save_link.href = urlObject.createObjectURL(export_blob);
@@ -87,6 +117,5 @@
                     var voteDOM = document.getElementById('part');
                     voteDOM.value = split_vote;
                 }
-    console.log('test')
 </script>
-</html>
+{% endblock %}

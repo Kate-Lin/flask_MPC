@@ -4,22 +4,61 @@ from flask_MPC.models.enc_vote import enc_vote
 from flask_MPC.models.enc_sum import enc_sum
 import numpy as np
 from flask_MPC import app,db
-from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g
+from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g,jsonify
 from flask_MPC.controller.generate_voters import generate_voter_ID
 from math import log2,floor
 from torch import randperm
 import random
+import json
 
 @app.route('/evoting/newvote')
 def newvote():
     bullet = bulletin.query.all()
     if bullet == []:
-        remain = None
+        remain = 0
     elif bullet[0].voter_num == bullet[0].T:
-        remain = None
+        remain = 0
     else:
         remain = bullet[0].voter_num-bullet[0].T
-    return render_template('new_vote.html',remain=remain)
+    return render_template('EVOTING_CREATE.html',remain=remain)
+
+@app.route('/evoting/check_man_auth',methods=['POST'])
+def check_man_auth():
+    data = json.loads(request.form.get('data'))
+    check=data['check']
+    if check != 'c9a31a3f670b7f9973f2004ed383fc8c50a20c8d595556b8d8c266630234d8ee':
+        return jsonify({'status':400,'message':'验证码错误'})
+    else:
+        return jsonify({'status':200,'message':'验证成功'})
+
+@app.route('/evoting/check_auto_auth',methods=['POST'])
+def check_auto_auth():
+    data = json.loads(request.form.get('data'))
+    check=data['check']
+    bullet = bulletin.query.all()
+    if bullet == []:
+        return jsonify({'message':'当前无可用投票'})
+    if check != 'c9a31a3f670b7f9973f2004ed383fc8c50a20c8d595556b8d8c266630234d8ee':
+        return jsonify({'status':400,'message':'验证码错误'})
+    else:
+        bullet = bulletin.query.first()
+        stu = voter.query.filter(voter.status == 0).all()
+        print(stu)
+        for student in stu:
+            random_vote(student,bullet)
+    return jsonify({'message':'随机选票已生成'})
+
+@app.route('/evoting/check_set_auth',methods=['POST'])
+def check_set_auth():
+    data = json.loads(request.form.get('data'))
+    check=data['check']
+    if check != 'c9a31a3f670b7f9973f2004ed383fc8c50a20c8d595556b8d8c266630234d8ee':
+        return jsonify({'message':'验证码错误'})
+    else:
+        db.reflect(app=app)
+        for table_name in db.metadata.tables:
+            db.get_engine().execute(f"truncate table {table_name}")
+    return jsonify({'message':'投票已重置'})
 
 @app.route('/evoting/create',methods=['POST'])
 def create_vote():
@@ -28,7 +67,7 @@ def create_vote():
     candidate_num = int(request.form['candidate_num'])
     win_num = int(request.form['win_num'])
     if check_num != 'c9a31a3f670b7f9973f2004ed383fc8c50a20c8d595556b8d8c266630234d8ee':
-        return "ERROR!! Invalid creator!!"
+        return render_template('error.html',message='新建投票失败')
     else:
         db.reflect(app=app)
         for table_name in db.metadata.tables:
@@ -39,7 +78,7 @@ def create_vote():
         b = bulletin(voter_num=voter_num,candidate_num=candidate_num,win_num=win_num,k=floor(log2(voter_num))+1,z=0,T=0)
         db.session.add(b)
         db.session.commit()
-        return "OK!!!"
+        return render_template('success.html',message='新建投票')
 
 @app.route('/evoting/manage',methods=['POST'])
 def process_manage():

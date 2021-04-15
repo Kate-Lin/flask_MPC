@@ -5,7 +5,7 @@
     <title>新建投票</title>
 </head>
 <body>
-{% if remain is none %}
+{% if remain == 0 %}
     <form action="{{ url_for('create_vote') }}" method="POST">
         <dl>
             <dt>特权码：

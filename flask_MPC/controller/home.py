@@ -18,7 +18,14 @@ def show_home():
 
 @app.route('/evoting')
 def evoting():
-    return render_template('EVOTING_INDEX.html')
+    bullet = bulletin.query.all()
+    if bullet == []:
+        remain = 0
+    elif bullet[0].voter_num == bullet[0].T:
+        remain = 0
+    else:
+        remain = bullet[0].voter_num-bullet[0].T
+    return render_template('EVOTING_INDEX.html',remain=remain)
 
 
 @app.route('/AI')

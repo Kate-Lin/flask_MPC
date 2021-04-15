@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Shen Lin">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>{{ message }}成功</title>
+    {% block title %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="../static/images/key-fill.svg" />
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/carousel/">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
@@ -39,7 +39,7 @@
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">投票人 <span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <li><a href="#" class="dropdown-item">投票</a></li>
+            <li><a href="{{ url_for('show_vote') }}" class="dropdown-item">投票</a></li>
             <li><a href="#" class="dropdown-item">计票</a></li>
             <li><a href="#" class="dropdown-item">显示结果</a></li>
             </ul>
@@ -103,18 +103,22 @@
         </div>
     </div>
 </header>
-    <div class="jumbotron" >
-        <div class="container bd-lead">
-            <h1 class="font-weight-bold">{{ message }}成功</h1>
-            <hr class="div1">
-            <p><strong>点击</strong><a href="{{ url_for('evoting') }}">这里</a>返回首页</p>
-        </div>
-    </div>
+<main id = 'content' role="main" >
+{% block main_page %}
+    {% endblock %}
+</main>
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2017-2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
 </body>
 <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% block js %}
+{% endblock %}
 <script type = "text/javascript" >
     var jq=jQuery.noConflict();
     $('#reset_vote').on('click',
@@ -135,7 +139,7 @@
             url: '/evoting/check_set_auth',
             success: function (data) {
                 alert(data.message);
-                location.href = '/evoting';
+                location.href ='{{ url_for('evoting') }}';
             }
         });
 
@@ -159,7 +163,7 @@
             url: '/evoting/check_auto_auth',
             success: function (data) {
                 alert(data.message);
-                location.href = '/evoting';
+                location.href ='{{ url_for('evoting') }}';
             }
         });
 

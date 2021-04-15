@@ -15,11 +15,11 @@ def show_vote():
     created=bulletin.query.count()
     #当前没有投票发起，报错
     if created == 0:
-        return 'ERROR! NO voting available!!'
+        return render_template('error.html',message='当前无可操作投票')
     else:
         candidate = bulletin.query.first().candidate_num
         win = bulletin.query.first().win_num
-        return render_template('vote.html',voter_num=bulletin.query.first().voter_num,can_num = candidate+1,win=win)
+        return render_template('EVOTING_VOTE.html',voter_num=bulletin.query.first().voter_num,can_num = candidate+1,win=win)
 
 
 @app.route('/evoting/show_result')
@@ -80,9 +80,9 @@ def vote():
     print(vote_part)
     stu = voter.query.filter(voter.check_num == name).all()
     if stu == []:
-        return redirect(url_for('error'))
+        return render_template('error.html',message='验证码有误，投票失败')
     elif stu[0].status == 1:
-        return redirect(url_for('error'))
+        return render_template('error.html', message='请勿重复投票')
     stu = stu[0]
     ID = stu.ID
     # print(ID)
@@ -106,8 +106,7 @@ def vote():
     if bullet.T == bullet.voter_num:
         bullet.z = 1
     db.session.commit()
-    return redirect(url_for('success'))
-
+    return render_template('success.html',message='投票成功')
 
 @app.route('/check_before_add')
 def check_before_add():

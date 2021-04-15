@@ -1,0 +1,53 @@
+{% extends 'basic_template.html' %}
+{% block title %}
+<title>新建投票</title>
+{% endblock %}
+{% block main_page %}
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">生成大规模选举</h1>
+            <hr class="div1">
+            <p><strong>请输入：</strong></p>
+            <p>投票人数量(n)、候选人数量(m)、胜选人数量(win)</p>
+
+        </div>
+    </div>
+    {% if remain == 0 %}
+    <div class="col-md-8 order-md-1 container">
+      <h4 class="mb-3">请输入以下变量生成新的投票</h4>
+      <form action="{{ url_for('create_vote') }}" method="POST">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="voter_num">投票人数量</label>
+              <label><small>将以学号形式随机生成，相应学生会收到校验码</small></label>
+              <input class="form-control" name='voter_num' onchange="if(/\D/g.test(this.value)){alert('只能输入正整数');this.value='';}">
+          </div>
+            <div class="col-md-6 mb-3">
+                <label for="candidate_num">候选人数量</label>
+                <label><small>候选人形式：x号候选人，候选人将收到自己的ID</small></label>
+              <input class="form-control" name='candidate_num' onchange="if(/\D/g.test(this.value)){alert('只能输入正整数');this.value='';}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="win_num">胜选人数量</label>
+          <div class="input-group">
+              <input class="form-control" name='win_num' onchange="if(/\D/g.test(this.value)){alert('只能输入正整数');this.value='';}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="check_num">64位验证码</label>
+          <input type="password" class="form-control" id="check_num" name="check_num" placeholder="">
+        </div>
+
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">创建</button>
+      </form>
+    </div>
+    {% else %}
+    <div class="container">
+        <h4>当前尚有未结束投票，请先完成投票或重置投票！</h4>
+    </div>
+    {% endif %}
+{% endblock %}
