@@ -32,10 +32,13 @@ def evoting():
 def AI():
     return render_template('AI_INDEX.html')
 
-@app.route('/AI/local_test')
-def show_local():
-    return render_template('test_local_data.html')
+@app.route('/AI/back_train')
+def back_train():
+    return render_template('AI_TRAIN.html')
 
+@app.route('/AI/back_test')
+def back_test():
+    return render_template('AI_TEST_BACK.html')
 
 @app.route('/evoting/error')
 def error():

@@ -46,8 +46,8 @@
 
           <div class="btn-group-justified list-unstyled mt-3 mb-4" role="group">
               <a href="{{ url_for('show_vote') }}" class="btn btn-outline-primary btn-xl"role="button">投票</a>
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">计票</a>
-              <a href="#" class="btn btn-outline-primary btn-xl"role="button">公布结果</a>
+              <button  data-toggle="modal" data-target="#sum-modal" class="btn btn-outline-primary btn-xl"role="button">计票</button>
+              <a href="{{ url_for('show_result') }}" class="btn btn-outline-primary btn-xl"role="button">公布结果</a>
           </div>
       </div>
     </div>

@@ -1,0 +1,78 @@
+{% extends 'basic_template.html' %}
+{% block title %}
+<title>公布结果</title>
+{% endblock %}
+{% block css %}
+    <style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+{% endblock %}
+{% block main_page %}
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">显示投票结果</h1>
+            <hr class="div1">
+            <p><strong>每个投票人生成本地计票和之后，将结果广播，用户将所有计票和相加，再按位分片，得到最终结果</strong></p>
+            <p style="font-weight: bold;">注意：每个投票人都会获得相同的结果，请放心使用</p>
+        </div>
+    </div>
+    <p id="indid" style="display:none">{{ index }}</p>
+    <p id="dataid" style="display:none">{{ value }}</p>
+    <div class="container">
+		<canvas id="canvas"></canvas>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="../static/js/Chart.bundle.js"></script>
+    <script src="../static/js/utils.js"></script>
+    <script>
+        var js_ind = {{ index|tojson }}
+        var js_val = {{ value|tojson }}
+		var color = Chart.helpers.color;
+		console.log(js_ind)
+        console.log(js_val)
+		var horizontalBarChartData = {
+			labels: js_ind,
+			datasets: [{
+				label: '得票',
+				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.red,
+				borderWidth: 1,
+				data: js_val
+			}]
+
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myHorizontalBar = new Chart(ctx, {
+				type: 'horizontalBar',
+				data: horizontalBarChartData,
+				options: {
+					// Elements options apply to all of the options unless overridden in a dataset
+					// In this case, we are setting the border of each horizontal bar to be 2px wide
+					elements: {
+						rectangle: {
+							borderWidth: 2,
+						}
+					},
+					responsive: true,
+					legend: {
+						position: 'right',
+					},
+					title: {
+						display: true,
+						text: '本次投票结果：'
+					}
+				}
+			});
+
+		};
+    </script>
+{% endblock %}

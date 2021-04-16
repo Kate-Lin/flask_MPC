@@ -13,3 +13,4 @@ def calculate_score():
     print(os.getcwd())
     os.system(str1)
     return 'success'
+

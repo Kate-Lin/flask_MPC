@@ -107,7 +107,7 @@ def random_vote(student,bullet):
     can_num = bullet.candidate_num
     voter_num = bullet.voter_num
     win = bullet.win_num
-    index = randperm(can_num)[0:win].numpy()
+    index = randperm(can_num)[0:randperm(win+1)[0]].numpy()
     print(ID, index)
     pi = 0
     for i in index:

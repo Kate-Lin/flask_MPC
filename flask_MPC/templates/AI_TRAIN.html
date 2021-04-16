@@ -1,0 +1,98 @@
+{% extends 'basic_template_1.html' %}
+{% block title %}
+    <title>后台生成训练模型</title>
+{% endblock %}
+{% block css %}
+    <link href="../static/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
+{% endblock %}
+{% block main_page %}
+        <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">选择相应训练算法和数据集进行后台训练</h1>
+            <!--x
+            <p>投票人P<sub>i</sub>将选票的二进制序列转化为十进制V<sub>i</sub>后，</p>
+            <p>在本地进行随机拆分，形成n个选票碎片，保留v<sub>i</sub><sub>i</sub>，剩余数v<sub>i</sub><sub>j</sub>传给n-1个选民。</p>
+            <p>每个投票人收到n-1个投票人的随机数v<sub>j</sub><sub>i</sub>后，n个数求和得V'<sub>i</sub>，并将V'<sub>i</sub>广播</p>
+            <p>在所有投票人计算完毕V'后，将V'全部求和，得到选举结果T，将T转化为二进制，得每个候选人的得票数。</p>
+            <p style="font-size: 1.2rem;font-weight: bold">该系统有以下特性：</p>-->
+            <hr class="div1">
+            <p><strong>可选训练算法：</strong>  逻辑回归（LR)，支持向量机（SVM）</p>
+            <p><strong>可选数据集：</strong>  UCI乳腺癌诊断数据集，UCI心脏病诊断数据集，UCI台湾新竹献血数据集</p>
+
+        </div>
+    </div>
+    <div class="container my-5">
+        <h3 class="text-center">请选择数据集，训练算法：</h3>
+        <hr class="div1">
+        <form role="form">
+            <div class="row" style="padding-left:5rem;">
+                <fieldset>
+                        <legend>
+                            请选择数据集
+                        </legend>
+                        <p>
+                            共有三种分类数据集可供选择，数据集信息及规模如下：<br>(数据集数量*可训练特征数）
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-check abc-radio abc-radio-info">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio1" value="option1" checked>
+                                    <label class="form-check-label" for="radio1">
+                                        <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)">
+                                            <strong>UCI乳腺癌诊断数据集：569*30 </strong>
+                                        </a>
+                                        <small class="text-muted">(良性样本：357 恶性样本：212)</small>
+                                    </label>
+                                </div>
+                                <div class="form-check abc-radio abc-radio-info">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio2" value="option2">
+                                    <label class="form-check-label" for="radio2">
+                                        <a href="https://archive.ics.uci.edu/ml/datasets/heart+disease">
+                                            <strong>UCI心脏病数据集：303*13 </strong>
+                                        </a>
+                                        <small class="text-muted">（正向样本：138 负向样本：165）</small>
+                                    </label>
+                                </div>
+                                <div class="form-check abc-radio abc-radio-info ">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio3" value="option3">
+                                    <label class="form-check-label" for="radio3">
+                                        <a href="https://archive.ics.uci.edu/ml/datasets/Blood+Transfusion+Service+Center">
+                                            <strong>UCI新竹献血站数据集：748*4</strong></a>
+                                        <small class="text-muted">（正向样本：178 负向样本：570）</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            请选择训练算法
+                        </legend>
+                        <p>
+                            共有两种分类数据集可供选择
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-check abc-radio abc-radio-info">
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio4" value="option1" checked>
+                                    <label class="form-check-label" for="radio4">
+                                        <strong>逻辑回归（Logistic Regression) </strong>
+                                    </label>
+                                </div>
+                                <div class="form-check abc-radio abc-radio-info">
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio5" value="option2">
+                                    <label class="form-check-label" for="radio5">
+                                        <strong>支持向量机（Support Vector Machine)</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+            </div>
+            <div class="text-right" style="padding-top: 2rem;padding-right: 5rem">
+                <input type="submit" class="btn btn-primary"/>
+                <input type="reset" class="btn btn-outline-secondary"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

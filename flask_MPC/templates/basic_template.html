@@ -6,12 +6,15 @@
     <meta name="description" content="">
     <meta name="author" content="Shen Lin">
     <meta name="generator" content="Hugo 0.80.0">
-    {% block title %}{% endblock %}
+    {% block title %}
+    {% endblock %}
     <link rel="icon" type="image/x-icon" href="../static/images/key-fill.svg" />
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/carousel/">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <link href="../static/css/MPC_style.css" rel="stylesheet">
+    {% block css %}{% endblock %}
 </head>
 <body>
 <header>
@@ -40,8 +43,8 @@
           role="button" aria-haspopup="true" aria-expanded="false">投票人 <span class="caret"></span></a>
             <ul class="dropdown-menu">
             <li><a href="{{ url_for('show_vote') }}" class="dropdown-item">投票</a></li>
-            <li><a href="#" class="dropdown-item">计票</a></li>
-            <li><a href="#" class="dropdown-item">显示结果</a></li>
+                <li><button class="dropdown-item" data-toggle="modal" data-target="#sum-modal">计票</button></li>
+            <li><a href="{{ url_for('show_result') }}" class="dropdown-item">显示结果</a></li>
             </ul>
         </li>
       </ul>
@@ -102,6 +105,33 @@
             </div>
         </div>
     </div>
+    <div id="sum-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>×</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h5 class="text-center">请输入投票人验证码</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" action="{{ url_for('local_check') }}" method="POST">
+                            <div class="form-group">
+                                <label for="check_num">验证码</label>
+                                <input class="form-control" type="password" placeholder="64位字母或数字" name='check_num3'
+                                id = 'check_num3'>
+                            </div>
+                            <div class="text-right">
+                                <input class="btn btn-primary" type="submit" id="sum_vote" />
+                                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 <main id = 'content' role="main" >
 {% block main_page %}
@@ -114,7 +144,7 @@
   </footer>
 </body>
 <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 {% block js %}

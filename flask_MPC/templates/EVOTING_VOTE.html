@@ -7,7 +7,8 @@
         <div class="container bd-lead">
             <h1 class="font-weight-bold">投票人选举</h1>
             <hr class="div1">
-            <p><strong>请选出您的选择：</strong></p>
+            <p><strong>请在候选人的复选框前打勾，选出您的选择</strong></p>
+            <p style="font-weight: bold;">注意：最多可选{{ win }}个</p>
         </div>
     </div>
     <div class="col-md-8 order-md-1 container">
@@ -29,7 +30,7 @@
                 {% endfor %}
             </div>
         </div>
-            <p>注意：最多可选{{ win }}个</p>
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <input type=submit value='分片' class="btn btn-primary btn-lg btn-block" onclick="exportRaw()">

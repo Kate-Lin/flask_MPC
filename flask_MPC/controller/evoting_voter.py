@@ -4,11 +4,12 @@ from flask_MPC.models.enc_vote import enc_vote
 from flask_MPC.models.enc_sum import enc_sum
 import numpy as np
 from flask_MPC import app,db
-from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g
+from flask import request,render_template,jsonify,flash,abort,url_for,redirect,session,Flask,g
 from flask_MPC.controller.generate_voters import generate_voter_ID
 from math import log2,floor
 from torch import randperm
 import random
+import json
 
 @app.route('/evoting/vote')
 def show_vote():
@@ -25,6 +26,10 @@ def show_vote():
 @app.route('/evoting/show_result')
 def show_result():
     #每个计票人存储v'
+    created=bulletin.query.count()
+    #当前没有投票发起，报错
+    if created == 0:
+        return render_template('error.html',message='当前无可操作投票')
     bullet = bulletin.query.first()
     n = bullet.voter_num
     if bullet.z == 0:
@@ -62,13 +67,20 @@ def show_result():
     for s in sum:
         target += s.val
     k = bullet.k
-    results = []
+    results = {}
     for i in range(bullet.candidate_num):
-        results.append(target & (2**k-1))
+        results[str(i+1)]=target & (2**k-1)
         target = target>>k
-    results.reverse()
     print(results)
-    return render_template('cal_sum.html',results=results)
+    b = results.keys()
+    ind = []
+    val = []
+    for i in b:
+        ind.append('候选人'+i)
+        val.append(str(results[i]))
+    print(ind)
+    print(val)
+    return render_template('EVOTING_RESULT.html',index=ind,value=val)
 
 
 @app.route('/evoting/process_result',methods=['POST'])
@@ -112,27 +124,33 @@ def vote():
 def check_before_add():
     bullet = bulletin.query.first()
     if bullet.z == 0:
-        return "投票尚未结束，请返回首页"
-    return render_template('check_before_add.html')
+        return render_template('error.html',message='投票尚未结束')
+    return render_template('../backup/check_before_add.html')
 
 @app.route('/evoting/local_check',methods=['POST'])
 def local_check():
-    check_num = request.form['check_num']
+    created=bulletin.query.count()
+    #当前没有投票发起，报错
+    if created == 0:
+        return render_template('error.html',message='当前无可操作投票')
+    check_num = request.form['check_num3']
     stu = voter.query.filter(voter.check_num == check_num).all()
     if stu == []:
-        return redirect(url_for('error'))
+        return render_template('error.html',message='验证码错误')
+    if stu[0].finished == 1:
+        return render_template('error.html',message='请勿重复本地计票')
     #查找出该用户求和需要的数据，读取数据库
     ID = stu[0].ID-1
     remain_vote = 0
     enc_v = enc_vote.query.filter(enc_vote.y==ID).all()
     for v in enc_v:
         remain_vote += v.val
-    return render_template('local_check.html',remain=remain_vote,user=ID)
+    return render_template('EVOTING_SUM.html',remain=remain_vote,user=ID+1)
 
 @app.route('/evoting/save_sum',methods=['POST'])
 def save_sum():
     total = int(request.form['total'])
-    ID = int(request.form['name'])
+    ID = int(request.form['name'])-1
     print('total sum:',total)
     print('voter_ID',ID)
     stu = voter.query.filter(voter.ID==ID+1).first()

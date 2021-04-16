@@ -1,0 +1,74 @@
+{% extends 'basic_template.html' %}
+{% block title %}
+<title>本地计票</title>
+{% endblock %}
+{% block css%}
+    <link href="../static/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../static/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+{% block main_page %}
+
+        <div class="jumbotron" >
+            <div class="container bd-lead">
+                <h1 class="font-weight-bold">本地计票</h1>
+                <hr class="div1">
+                <p><strong>系统将会把来自其他投票人的分片选票传送给你，请在本地上传您保存的分片选票，进行求和。</strong></p>
+                <p style="font-weight: bold;">注意：系统将不会把您的选票上传至后台，请放心使用</p>
+            </div>
+        </div>
+        <div class="col-md-8 order-md-1 container">
+            <form action="{{ url_for('save_sum') }}" method="POST">
+                <p class="mb-3">{{ user }}号用户，您好！请上传您的选票分片：
+                    <input id="name" name="name" style="display: none;" value={{ user }}>
+                <small>（本人持有的选票片段只用于本地计算，不会上传至服务器）</small></p>
+                <div class="file-loading">
+                    <input id="file-0a" class="file" type="file" data-theme="fas" data-show-upload="false" data-browse-on-zone-click="true">
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="check_num">请确认您的选票分片数值：</label>
+                        <input id="result" class="form-control" style="border: none"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="check_num">您计算生成的部分选票总数：<small>(请确认后再上传）</small></label>
+                        <input id="total" name="total" class="form-control" style="border: none"/>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary"/>
+                <input type="reset" class="btn btn-outline-secondary"/>
+            </form>
+        </div>
+
+{% endblock %}
+{% block js %}
+    <script src="../static/js/plugins/piexif.js" type="text/javascript"></script>
+    <script src="../static/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="../static/js/fileinput.js" type="text/javascript"></script>
+    <script src="../static/js/locales/zh.js" type="text/javascript"></script>
+    <script src="../static/themes/fas/theme.js" type="text/javascript"></script>
+    <script src="../static/themes/explorer-fas/theme.js" type="text/javascript"></script>
+    <script>
+        $("#file-0a").fileinput({
+        theme: 'fas',
+        })
+        document.getElementById("file-0a").addEventListener("change",function () {
+
+		var file = document.getElementById('file-0a').files[0];
+
+		console.log(file);
+
+		var reader = new FileReader();
+
+		console.log(reader);
+
+        reader.readAsText(file,'utf-8');
+
+ 			reader.onload = function () {
+                document.getElementById('result').value = Number(reader.result);
+                document.getElementById('total').value = Number(reader.result)+{{ remain }}
+            }
+    });
+    </script>
+{% endblock %}

@@ -6,8 +6,8 @@
 </head>
 <body>
     <h3>结果如下</h3>
-    {% for result in results %}
-        <p>候选人{{ results.index(result) + 1 }}得票数：{{ result }}</p>
+    {% for key in results %}
+        <p>候选人{{ key }}得票数：{{ results[key] }}</p>
     {% endfor %}
 </body>
 </html>
