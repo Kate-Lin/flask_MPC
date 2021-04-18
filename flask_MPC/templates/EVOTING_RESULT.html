@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block js %}
-    <script src="../static/js/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.js" integrity="sha512-LlFvdZpYhQdASf4aZfSpmyHD6+waYVfJRwfJrBgki7/Uh+TXMLFYcKMRim65+o3lFsfk20vrK9sJDute7BUAUw==" crossorigin="anonymous"></script>
     <script src="../static/js/utils.js"></script>
     <script>
         var js_ind = {{ index|tojson }}
@@ -52,24 +52,27 @@
 		window.onload = function() {
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myHorizontalBar = new Chart(ctx, {
-				type: 'horizontalBar',
+				type: 'bar',
 				data: horizontalBarChartData,
 				options: {
+				    indexAxis: 'x',
 					// Elements options apply to all of the options unless overridden in a dataset
 					// In this case, we are setting the border of each horizontal bar to be 2px wide
 					elements: {
-						rectangle: {
+						bar: {
 							borderWidth: 2,
 						}
 					},
 					responsive: true,
-					legend: {
-						position: 'right',
-					},
-					title: {
-						display: true,
-						text: '本次投票结果：'
-					}
+                    plugins:{
+				        legend: {
+						    position: 'right',
+					    },
+					    title: {
+						    display: true,
+						    text: '本次投票结果：'
+					    },
+                    }
 				}
 			});
 
