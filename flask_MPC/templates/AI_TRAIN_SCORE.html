@@ -1,0 +1,20 @@
+{% extends 'basic_template_1.html' %}
+{% block title %}
+    <title>训练结果</title>
+{% endblock %}
+{% block main_page %}
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">训练结果生成模型</h1>
+            <hr class="div1">
+            <p><strong>模型准确率：</strong>  {{ accuracy }}%</p>
+            <p><strong>训练耗时：</strong>  {{ time_cost }}s</p>
+             <p><strong>点击</strong><a href="{{ url_for('AI') }}">这里</a>返回首页</p>
+        </div>
+    </div>
+    <div class="row">
+    <img src="{{ confusion_matrix }}">
+    <img src="{{ ROC_curve }}">
+    </div>
+    
+{% endblock %}

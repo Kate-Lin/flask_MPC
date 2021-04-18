@@ -6,7 +6,7 @@
     <link href="../static/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
 {% endblock %}
 {% block main_page %}
-        <div class="jumbotron" >
+    <div class="jumbotron" >
         <div class="container bd-lead">
             <h1 class="font-weight-bold">选择相应训练算法和数据集进行后台训练</h1>
             <!--x
@@ -24,7 +24,7 @@
     <div class="container my-5">
         <h3 class="text-center">请选择数据集，训练算法：</h3>
         <hr class="div1">
-        <form role="form">
+        <form role="form" action="{{ url_for('train_model') }}" method="POST">
             <div class="row" style="padding-left:5rem;">
                 <fieldset>
                         <legend>
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio1" id="radio1" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio1" value="breast" checked>
                                     <label class="form-check-label" for="radio1">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)">
                                             <strong>UCI乳腺癌诊断数据集：569*30 </strong>
@@ -45,7 +45,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio1" id="radio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio2" value="heart">
                                     <label class="form-check-label" for="radio2">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/heart+disease">
                                             <strong>UCI心脏病数据集：303*13 </strong>
@@ -54,7 +54,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info ">
-                                    <input class="form-check-input" type="radio" name="radio1" id="radio3" value="option3">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio3" value="transfusion">
                                     <label class="form-check-label" for="radio3">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/Blood+Transfusion+Service+Center">
                                             <strong>UCI新竹献血站数据集：748*4</strong></a>
@@ -74,13 +74,13 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio4" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio4" value="LR" checked>
                                     <label class="form-check-label" for="radio4">
                                         <strong>逻辑回归（Logistic Regression) </strong>
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio5" value="option2">
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio5" value="SVM">
                                     <label class="form-check-label" for="radio5">
                                         <strong>支持向量机（Support Vector Machine)</strong>
                                     </label>
