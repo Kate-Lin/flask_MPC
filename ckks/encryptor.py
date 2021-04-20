@@ -11,6 +11,7 @@ class CKKSEncryptor:
         self.big_modulus = param.big_modulus
         self.crt_context = param.crt_context
 
+    #CKKS加密函数
     def encrypt(self, plain):
         p0 = self.public_key[0]
         p1 = self.public_key[1]

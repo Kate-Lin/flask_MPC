@@ -1,6 +1,6 @@
 {% extends 'basic_template_1.html' %}
 {% block title %}
-    <title>训练结果</title>
+    <title>安全双方验证结果</title>
 {% endblock %}
 {% block css %}
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
@@ -10,8 +10,7 @@
         <div class="container bd-lead">
             <h1 class="font-weight-bold">训练结果生成模型</h1>
             <hr class="div1">
-            <p><strong>模型准确率：</strong>  {{ accuracy }}%</p>
-            <p><strong>训练耗时：</strong>  {{ time_cost }}s</p>
+            <p><strong>验证耗时：</strong>  {{ time_cost }}s</p>
             <p><strong>均方误差：</strong>（越小误差越小）：{{ MSE }}</p>
             <p><strong>对数均方误差：</strong>（越小误差越小）：{{ MSLE }}</p>
             <p><strong>R方误差：</strong>（越接近1越准确）{{ R_error }}</p>

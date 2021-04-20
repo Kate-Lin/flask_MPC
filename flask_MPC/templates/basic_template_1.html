@@ -9,6 +9,12 @@
     {% block title %}
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="../static/images/key-fill.svg" />
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- Third party plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/carousel/">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
@@ -19,7 +25,7 @@
 </head>
 <body>
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark this-nav" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark this-nav" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);" id="mainNav">
     <a class="navbar-brand" href="{{ url_for('show_home') }}">首页</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -39,10 +45,10 @@
         </li>
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-          role="button" aria-haspopup="true" aria-expanded="false">利用自定义数据进行测试 <span class="caret"></span></a>
+          role="button" aria-haspopup="true" aria-expanded="false">双方安全验证 <span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <li><a href="{{ url_for('back_test') }}" class="dropdown-item">进行测试</a></li>
-            <li><a href="#" class="dropdown-item">显示测试结果</a></li>
+            <li><a href="{{ url_for('back_test') }}" class="dropdown-item">后台数据</a></li>
+            <li><a href="#" class="dropdown-item">自定义数据</a></li>
             </ul>
         </li>
       </ul>

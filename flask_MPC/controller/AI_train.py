@@ -6,7 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import confusion_matrix,accuracy_score,roc_curve,classification_report,precision_recall_curve
+from sklearn.metrics import confusion_matrix,accuracy_score,\
+    roc_curve,classification_report,mean_squared_error, mean_squared_log_error,r2_score
 from util.conf_matrix import draw_conf_matrix
 import matplotlib.pyplot as plt
 import os
@@ -14,7 +15,7 @@ import time
 import pandas as pd
 
 def choose_train(data_name,model_name):
-    if data_name == 'breast':
+    if data_name == 'breast_cancer':
         dataset = load_breast_cancer()
         X = dataset.data
         Y = dataset.target
@@ -46,7 +47,7 @@ def draw_ROC_curve(model_name,false_positive_rate, true_positive_rate,addr):
     plt.ylabel('True positive rate')
     plt.xlabel('False positive rate')
     plt.legend()
-    plt.savefig(addr, bbox_inches='tight')
+    plt.savefig(addr)
 
 
 @app.route('/AI/train_result',methods=['POST'])
@@ -67,9 +68,26 @@ def train_model():
     print(classification)
     time_cost_train = time.perf_counter()-time0
     print(model.score(x_test, y_test) * 100)
-    draw_conf_matrix(conf_matrix,['true','false'],'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.jpg')
+    #均方误差
+    ms_error = mean_squared_error(y_test,model_predict)
+    #对数均方误差
+    msl_error = mean_squared_log_error(y_test,model_predict)
+    #R方
+    R_error = r2_score(y_test,model_predict)
+    print(ms_error)
+    print(msl_error)
+    print(R_error)
+    draw_conf_matrix(conf_matrix,['true','false'],
+                     'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.jpg',title='confusion matrix for '+ data_name+' dataset')
     false_positive_rate, true_positive_rate, threshold = roc_curve(y_test,model_predict)
     draw_ROC_curve(model_name,false_positive_rate,true_positive_rate,'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.jpg')
     return render_template('AI_TRAIN_SCORE.html',
                            accuracy=round(model.score(x_test, y_test) * 100,3),
-                           time_cost=round(time_cost_train,3))
+                           time_cost=round(time_cost_train,3),
+                           MSE=round(ms_error,3),
+                           MSLE=round(msl_error,3),
+                           R_error = round(R_error,3),
+                           class_report = classification,
+                           conf='../static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.jpg',
+                           ROC='../static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.jpg'
+                           )

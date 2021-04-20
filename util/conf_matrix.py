@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def draw_conf_matrix(conf_matrix,tag,addr,title='confusion_matrix for UCI heart disease'):
+    plt.clf()
+    plt.cla()
     plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Oranges)
     plt.title(title)
     plt.colorbar()

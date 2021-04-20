@@ -50,18 +50,6 @@ def show_result():
         enc_s = enc_sum(sender=ID, val=remain_vote)
         db.session.add(enc_s)
     db.session.commit()
-    """
-    db.reflect(app=app)
-    db.get_engine().execute(f"truncate table enc_sum")
-    for i in range(bullet.voter_num):
-        voting = enc_vote.query.filter(enc_vote.y == i).all()
-        sum = 0
-        for v in voting:
-            sum += v.val
-        s = enc_sum(sender=i,val=sum)
-        db.session.add(s)
-    db.session.commit()
-    """
     sum = enc_sum.query.all()
     target = 0
     for s in sum:
@@ -84,6 +72,7 @@ def show_result():
 
 
 @app.route('/evoting/process_result',methods=['POST'])
+#电子投票，投票人投票
 def vote():
     # 校验学号是否有权投票
     name = request.form['check_num']
@@ -109,12 +98,6 @@ def vote():
     for i in range(len(vote_part)):
         enc = enc_vote(x=ID - 1, y=ind[i], val=int(vote_part[i]))
         db.session.add(enc)
-    """
-    for i in range(bullet.voter_num):
-        if i != ID-1:
-            enc = enc_vote(x=ID - 1, y=i, val=int(vote_part[i-1]))
-            db.session.add(enc)
-    """
     if bullet.T == bullet.voter_num:
         bullet.z = 1
     db.session.commit()

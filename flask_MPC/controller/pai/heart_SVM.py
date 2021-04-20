@@ -93,7 +93,7 @@ if __name__ == '__main__':
     print("Alice: Generating paillier keypair")
     alice = Alice()
     alice.generate_paillier_keypair(n_length=3072)
-    print("Alice: Learning breast cancer classifier")
+    print("Alice: Learning breast_cancer cancer classifier")
     with timer() as t:
         alice.fit(train_x, train_y)
     print("Classify with model in the clear -- "
