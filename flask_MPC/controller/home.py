@@ -40,6 +40,14 @@ def back_train():
 def back_test():
     return render_template('AI_TEST_BACK.html')
 
+@app.route('/AI/show_train')
+def train_score():
+    return render_template('AI_TRAIN_SHOW.html')
+
+@app.route('/AI/show_test')
+def show_test():
+    return render_template('AI_TEST_SHOW.html')
+
 @app.route('/evoting/error')
 def error():
     return 'ERROR!!'

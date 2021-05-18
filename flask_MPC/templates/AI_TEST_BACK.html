@@ -25,7 +25,7 @@
     <div class="container my-5">
         <h3 class="text-center">请选择加密算法，数据集，训练算法：</h3>
         <hr class="div1">
-        <form role="form">
+        <form role="form" action="{{ url_for('calculate_score') }}" method="POST">
             <div class="row" style="padding-left: 5rem;">
                 <fieldset>
                         <legend>
@@ -36,7 +36,7 @@
                         </p>
                         <div class="row" style="padding-left: 1rem">
                         <div class="form-check abc-radio abc-radio-info form-check-inline">
-                                    <input class="form-check-input" type="radio" name="radio1" id="radio1" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio1" value="pai" checked>
                                     <label class="form-check-label" for="radio1">
                                         <a href="https://www.cae.tntech.edu/~mmahmoud/teaching_files/grad/ECE7970/S16/slides/Homomorphic_basics.pdf">
                                             <strong>Paillier算法 </strong>
@@ -45,7 +45,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info form-check-inline">
-                                    <input class="form-check-input" type="radio" name="radio1" id="radio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="radio1" id="radio2" value="ckks">
                                     <label class="form-check-label" for="radio2">
                                         <a href="https://eprint.iacr.org/2016/421.pdf">
                                             <strong>CKKS算法 </strong>
@@ -68,7 +68,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio3" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio3" value="breast_cancer" checked>
                                     <label class="form-check-label" for="radio3">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)">
                                             <strong>UCI乳腺癌诊断数据集：569*30 </strong>
@@ -77,7 +77,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio4" value="option2">
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio4" value="heart">
                                     <label class="form-check-label" for="radio4">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/heart+disease">
                                             <strong>UCI心脏病数据集：303*13 </strong>
@@ -86,11 +86,10 @@
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info ">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio5" value="option3">
+                                    <input class="form-check-input" type="radio" name="radio2" id="radio5" value="NIMS">
                                     <label class="form-check-label" for="radio5">
                                         <a href="https://archive.ics.uci.edu/ml/datasets/Blood+Transfusion+Service+Center">
-                                            <strong>UCI新竹献血站数据集：748*4</strong></a>
-                                        <small class="text-muted">（正向样本：178 负向样本：570）</small>
+                                            <strong>NIMS钢测试数据集：748*4</strong></a>
                                     </label>
                                 </div>
                             </div>
@@ -106,13 +105,13 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio3" id="radio6" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="radio3" id="radio6" value="LR" checked>
                                     <label class="form-check-label" for="radio6">
                                         <strong>逻辑回归（Logistic Regression) </strong>
                                     </label>
                                 </div>
                                 <div class="form-check abc-radio abc-radio-info">
-                                    <input class="form-check-input" type="radio" name="radio2" id="radio7" value="option2">
+                                    <input class="form-check-input" type="radio" name="radio3" id="radio7" value="SVM">
                                     <label class="form-check-label" for="radio7">
                                         <strong>支持向量机（Support Vector Machine)</strong>
                                     </label>

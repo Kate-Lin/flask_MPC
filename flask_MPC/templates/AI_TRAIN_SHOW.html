@@ -1,0 +1,308 @@
+{% extends 'basic_template_1.html' %}
+{% block title %}
+    <title>训练结果</title>
+{% endblock %}
+{% block css %}
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
+{% endblock %}
+{% block main_page %}
+    <div class="jumbotron" >
+        <div class="container bd-lead">
+            <h1 class="font-weight-bold">训练结果汇总如下：</h1>
+            <hr class="div1">
+             <p><strong>点击</strong><a href="{{ url_for('AI') }}">这里</a>返回首页</p>
+        </div>
+    </div>
+    <div id="portfolio" class="container">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/breast_cancer/LR_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/breast_cancer/LR_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">LR模型×乳腺癌数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/breast_cancer/LR_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/breast_cancer/LR_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">LR模型×乳腺癌数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/breast_cancer/SVM_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/breast_cancer/SVM_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">SVM模型×乳腺癌数据集</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/breast_cancer/SVM_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/breast_cancer/SVM_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">SVM模型×乳腺癌数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/heart/LR_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/heart/LR_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">LR模型×心脏病数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/heart/LR_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/heart/LR_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">LR模型×心脏病数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/heart/SVM_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/heart/SVM_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">SVM模型×心脏病数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/heart/SVM_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/heart/SVM_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">SVM模型×心脏病数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/NIMS/LR_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/NIMS/LR_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">LR模型×NIMS数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/NIMS/LR_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/NIMS/LR_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">LR模型×NIMS数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/NIMS/SVM_conf_matrix_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/NIMS/SVM_conf_matrix_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">混淆矩阵</div>
+                                <div class="project-name">SVM模型×NIMS数据集</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/NIMS/SVM_ROC_curve_RAW.jpg">
+                            <img class="img-fluid" src="../static/result_images/NIMS/SVM_ROC_curve_RAW.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">ROC曲线</div>
+                                <div class="project-name">SVM模型×乳腺癌数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-lg-12 col-sm-6">
+                        <a class="portfolio-box" href="../static/result_images/ALL_ROC_Curve.jpg">
+                            <img class="img-fluid" src="../static/result_images/ALL_ROC_Curve.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">全部ROC曲线对比</div>
+                                <div class="project-name">LR/SVM模型×乳腺癌/心脏病/NIMS数据集</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+    <br><br>
+        <h5 style="text-align: center;font-weight: bold">训练时间</h5>
+        <table class="table table-hover table-bordered">
+
+            <thead>
+                <tr>
+                    <th></th><th>乳腺癌数据集</th><th>心脏病数据集</th><th>NIMS数据集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">逻辑回归</th>
+                    <td>0.018s</td>
+                    <td>0.016s</td>
+                    <td>0.016s</td>
+                </tr>
+                <tr>
+                    <th scope="row">支持向量机</th>
+                    <td>0.015s</td>
+                    <td>0.015s</td>
+                    <td>0.03s</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h5 style="text-align: center;font-weight: bold">准确率</h5>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th></th><th>乳腺癌数据集</th><th>心脏病数据集</th><th>NIMS数据集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">逻辑回归</th>
+                    <td>97.368%</td>
+                    <td>85.246%</td>
+                    <td>76.000%</td>
+                </tr>
+                <tr>
+                    <th scope="row">支持向量机</th>
+                    <td>95.614%</td>
+                    <td>86.885%</td>
+                    <td>75.333%</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h5 style="text-align: center;font-weight: bold">均方差</h5>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th></th><th>乳腺癌数据集</th><th>心脏病数据集</th><th>NIMS数据集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">逻辑回归</th>
+                    <td>0.026</td>
+                    <td>0.146</td>
+                    <td>0.24</td>
+                </tr>
+                <tr>
+                    <th scope="row">支持向量机</th>
+                    <td>0.044</td>
+                    <td>0.131</td>
+                    <td>0.247</td>
+                </tr>
+            </tbody>
+        </table>
+    <br><br>
+        <h5 style="text-align: center;font-weight: bold">R方</h5>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th></th><th>乳腺癌数据集</th><th>心脏病数据集</th><th>NIMS数据集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">逻辑回归</th>
+                    <td>0.888</td>
+                    <td>0.408</td>
+                    <td>-0.292</td>
+                </tr>
+                <tr>
+                    <th scope="row">支持向量机</th>
+                    <td>0.813</td>
+                    <td>0.474</td>
+                    <td>-0.327</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+       (function($) {
+  "use strict"; // Start of use strict
+
+  // Smooth scrolling using jQuery easing
+  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: (target.offset().top - 72)
+        }, 1000, "easeInOutExpo");
+        return false;
+      }
+    }
+  });
+
+  // Closes responsive menu when a scroll trigger link is clicked
+  $('.js-scroll-trigger').click(function() {
+    $('.navbar-collapse').collapse('hide');
+  });
+
+  // Activate scrollspy to add active class to navbar items on scroll
+  $('body').scrollspy({
+    target: '#mainNav',
+    offset: 75
+  });
+
+  // Collapse Navbar
+  var navbarCollapse = function() {
+    if ($("#mainNav").offset().top > 100) {
+      $("#mainNav").addClass("navbar-scrolled");
+    } else {
+      $("#mainNav").removeClass("navbar-scrolled");
+    }
+  };
+  // Collapse now if page is not at top
+  navbarCollapse();
+  // Collapse the navbar when page is scrolled
+  $(window).scroll(navbarCollapse);
+
+  // Magnific popup calls
+  $('#portfolio').magnificPopup({
+    delegate: 'a',
+    type: 'image',
+    tLoading: 'Loading image #%curr%...',
+    mainClass: 'mfp-img-mobile',
+    gallery: {
+      enabled: true,
+      navigateByImgClick: true,
+      preload: [0, 1]
+    },
+    image: {
+      tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+    }
+  });
+
+})(jQuery); // End of use strict
+    </script>
+{% endblock %}

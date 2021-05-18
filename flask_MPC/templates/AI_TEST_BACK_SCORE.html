@@ -1,6 +1,6 @@
 {% extends 'basic_template_1.html' %}
 {% block title %}
-    <title>安全双方验证结果</title>
+    <title>训练结果</title>
 {% endblock %}
 {% block css %}
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
@@ -10,11 +10,14 @@
         <div class="container bd-lead">
             <h1 class="font-weight-bold">训练结果生成模型</h1>
             <hr class="div1">
-            <p><strong>验证耗时：</strong>  {{ time_cost }}s</p>
+            <p><strong>模型准确率：</strong>  {{ accuracy }}%</p>
+            <p><strong>和未加密模型相比的准确率损失：</strong>{{ diff_accuracy }}</p>
+            <p><strong>和未加密模型相比的计算结果损失最大值：</strong>{{ diff_score }}</p>
+            <p><strong>加密验证耗时：</strong>  {{ time_cost_test }}s</p>
             <p><strong>均方误差：</strong>（越小误差越小）：{{ MSE }}</p>
             <p><strong>对数均方误差：</strong>（越小误差越小）：{{ MSLE }}</p>
             <p><strong>R方误差：</strong>（越接近1越准确）{{ R_error }}</p>
-             <p><strong>点击</strong><a href="{{ url_for('AI') }}">这里</a>返回首页</p>
+            <p><strong>点击</strong><a href="{{ url_for('AI') }}">这里</a>返回首页</p>
         </div>
     </div>
     <div id="portfolio" class="container">
@@ -38,52 +41,6 @@
                     </div>
                 </div>
             </div>
-    </div>
-    <div class="container">
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th></th><th>precision</th><th>recall</th><th>f1-score</th><th>support</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">0</th>
-                    <td>{{ class_report['0']['precision'] }}</td>
-                    <td>{{ class_report['0']['recall'] }}</td>
-                    <td>{{ class_report['0']['f1-score'] }}</td>
-                    <td>{{ class_report['0']['support'] }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ class_report['1']['precision'] }}</td>
-                    <td>{{ class_report['1']['recall'] }}</td>
-                    <td>{{ class_report['1']['f1-score'] }}</td>
-                    <td>{{ class_report['1']['support'] }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">accuracy</th>
-                    <td></td>
-                    <td></td>
-                    <td>{{ class_report['accuracy'] }}</td>
-                    <td>{{ class_report['macro avg']['support'] }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">macro avg</th>
-                    <td>{{ class_report['macro avg']['precision'] }}</td>
-                    <td>{{ class_report['macro avg']['recall'] }}</td>
-                    <td>{{ class_report['macro avg']['f1-score'] }}</td>
-                    <td>{{ class_report['macro avg']['support'] }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">weighted avg</th>
-                    <td>{{ class_report['weighted avg']['precision'] }}</td>
-                    <td>{{ class_report['weighted avg']['recall'] }}</td>
-                    <td>{{ class_report['weighted avg']['f1-score'] }}</td>
-                    <td>{{ class_report['weighted avg']['support'] }}</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 {% endblock %}
 

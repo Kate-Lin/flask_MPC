@@ -40,7 +40,7 @@
           role="button" aria-haspopup="true" aria-expanded="false">后台生成训练模型<span class="caret"></span></a>
             <ul class="dropdown-menu">
             <li><a href="{{ url_for('back_train') }}" class="dropdown-item">进行训练</a></li>
-            <li><a href="#" class="dropdown-item">显示训练结果</a></li>
+            <li><a href="{{ url_for('train_score') }}" class="dropdown-item">显示训练结果</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown active">
@@ -48,7 +48,7 @@
           role="button" aria-haspopup="true" aria-expanded="false">双方安全验证 <span class="caret"></span></a>
             <ul class="dropdown-menu">
             <li><a href="{{ url_for('back_test') }}" class="dropdown-item">后台数据</a></li>
-            <li><a href="#" class="dropdown-item">自定义数据</a></li>
+            <li><a href="#" class="dropdown-item">显示验证结果</a></li>
             </ul>
         </li>
       </ul>
