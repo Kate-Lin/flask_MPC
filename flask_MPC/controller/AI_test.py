@@ -10,7 +10,7 @@ from phe.Phe_Bob import Phe_Bob
 import math
 from sklearn.datasets import load_breast_cancer
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split,ShuffleSplit
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix,accuracy_score,\
     roc_curve,classification_report,mean_squared_error, mean_squared_log_error,r2_score
@@ -66,8 +66,26 @@ def calculate_score():
     enc_name = request.form.get('radio1')
     data_name = request.form.get('radio2')
     model_name = request.form.get('radio3')
+    if data_name == 'NIMS':
+        tag=['unqualified','qualified']
+    else:
+        tag=['ill','healthy']
     X,Y = choose_train(data_name)
     degree = find_next_power(X.shape[1])
+
+    if enc_name == 'ckks':
+        alice = CKKS_Alice(degree=degree)
+        bob = CKKS_Bob(degree=degree,public_key=alice.public_key)
+    else:
+        alice = Phe_Alice()
+        bob = Phe_Bob(alice.pubkey)
+    rs = ShuffleSplit(n_splits=10,random_state=42,test_size=0.2)
+    total_score = []
+    total_time=[]
+    total_ms_error=[]
+    total_msl_error = []
+    total_R_error=[]
+    classification={}
     x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
     scaler = StandardScaler()
     x_train = scaler.fit_transform(x_train)
@@ -75,13 +93,6 @@ def calculate_score():
     loc_path = 'flask_MPC/static/result_images/'+data_name+'/train_'+model_name+'.m'
     model = load(loc_path)
     time0 = time.perf_counter()
-    if enc_name == 'ckks':
-        alice = CKKS_Alice(degree=degree)
-        bob = CKKS_Bob(degree=degree,public_key=alice.public_key)
-    else:
-        alice = Phe_Alice()
-        bob = Phe_Bob(alice.pubkey)
-
     encrypted_weights, encrypted_intercept = alice.encrypt_weights(model)
     bob.set_weights(encrypted_weights,encrypted_intercept)
     encrypted_scores = bob.encrypted_evaluate(x_test)
@@ -105,12 +116,18 @@ def calculate_score():
     #R方
     R_error = r2_score(y_test,scores)
     conf_matrix = confusion_matrix(y_test,scores)
-    draw_conf_matrix(conf_matrix, ['true', 'false'],
-                     'flask_MPC/static/result_images/' + data_name + '/' + model_name + '_conf_matrix_ENC.jpg',
-                     title='confusion matrix for ' + data_name + ' dataset')
+    if enc_name == 'pai':
+        enc_name= 'Paillier'
+    else:
+        enc_name='CKKS'
+    draw_conf_matrix(conf_matrix, tag,
+                     'flask_MPC/static/result_images/' + data_name + '/' + model_name + '_conf_matrix_'+enc_name+'.jpg',
+                     title='confusion matrix for '+ data_name+' dataset with '+enc_name+' '+model_name+' model')
     false_positive_rate, true_positive_rate, threshold = roc_curve(y_test, scores)
-    draw_ROC_curve(model_name, false_positive_rate, true_positive_rate,
-                   'flask_MPC/static/result_images/' + data_name + '/' + model_name + '_ROC_curve_ENC.jpg')
+    draw_ROC_curve(model_name,
+                   'ROC Curve for ' + data_name + ' dataset with ' + enc_name+' '+model_name + ' model',
+                   false_positive_rate, true_positive_rate,
+                   'flask_MPC/static/result_images/' + data_name + '/' + model_name + '_ROC_curve_'+enc_name+'.jpg')
     print(accuracy)
     print(diff_accuracy)
     print(diff_score)
@@ -123,6 +140,6 @@ def calculate_score():
                            MSE=round(ms_error,3),
                            MSLE=round(msl_error,3),
                            R_error=round(R_error,3),
-                           conf='../static/result_images/' + data_name + '/' + model_name + '_conf_matrix_ENC.jpg',
-                           ROC='../static/result_images/' + data_name + '/' + model_name + '_ROC_curve_ENC.jpg')
+                           conf='../static/result_images/' + data_name + '/' + model_name + '_conf_matrix_'+enc_name+'.jpg',
+                           ROC='../static/result_images/' + data_name + '/' + model_name + '_ROC_curve_'+enc_name+'.jpg')
 
