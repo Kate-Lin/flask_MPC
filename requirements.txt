@@ -1,0 +1,15 @@
+Flask_Migrate==2.7.0
+matplotlib==3.3.4
+torch==1.8.1
+pandas==1.1.5
+numpy==1.19.5
+SQLAlchemy==1.4.7
+joblib==1.0.1
+Flask_Script==2.0.6
+Flask==1.1.2
+seaborn==0.11.1
+alembic==1.5.8
+Flask_SQLAlchemy==2.5.1
+gmpy2==2.0.8
+pycryptodome==3.10.1
+scikit_learn==0.24.2
