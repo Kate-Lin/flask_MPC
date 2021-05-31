@@ -99,7 +99,10 @@ def train_model():
     total_msl_error = []
     total_R_error=[]
     classification={}
+    r = 1
     for train_ids, test_ids in rs.split(X, Y):
+        print('===round ', r, '===')
+        r += 1
         if type(X)==np.ndarray:
             x_train, x_test = [X[i] for i in train_ids], [X[i] for i in test_ids]
             y_train, y_test = [Y[i] for i in train_ids], [Y[i] for i in test_ids]
@@ -135,9 +138,10 @@ def train_model():
         #print(model_predict)
         #print(y_test)
         draw_conf_matrix(conf_matrix,tag,
-                         'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.jpg',title='confusion matrix for '+ data_name+' dataset with '+model_name+' model')
+                         'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.svg',title='confusion matrix for '+ data_name+' dataset with '+model_name+' model')
         false_positive_rate, true_positive_rate, threshold = roc_curve(y_test,model_predict)
-        draw_ROC_curve(model_name,'ROC Curve for '+ data_name+' dataset with '+model_name+' model',false_positive_rate,true_positive_rate,'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.jpg')
+        draw_ROC_curve(model_name,'ROC Curve for '+ data_name+' dataset with '+model_name+' model',false_positive_rate,true_positive_rate,'flask_MPC/static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.svg')
+        plt.close()
 
     return render_template('AI_TRAIN_SCORE.html',
                            accuracy=round(np.mean(total_score),4),
@@ -146,6 +150,6 @@ def train_model():
                            MSLE=round(np.mean(total_msl_error),4),
                            R_error = round(np.mean(total_R_error),4),
                            class_report = classification,
-                           conf='../static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.jpg',
-                           ROC='../static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.jpg'
+                           conf='../static/result_images/'+data_name+'/'+model_name+'_conf_matrix_RAW.svg',
+                           ROC='../static/result_images/'+data_name+'/'+model_name+'_ROC_curve_RAW.svg'
                            )

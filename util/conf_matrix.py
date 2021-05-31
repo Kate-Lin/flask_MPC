@@ -13,8 +13,8 @@ def draw_conf_matrix(conf_matrix,tag,addr,title='confusion_matrix for UCI heart 
     thresh = conf_matrix.max() / 2
     iters = np.reshape([[[i, j] for j in range(len(tag))] for i in range(len(tag))], (conf_matrix.size, 2))
     for i, j in iters:
-        plt.text(j, i, format(conf_matrix[i, j]))  # 显示对应的数字
+        plt.text(j, i, format(conf_matrix[i, j]),color="white" if conf_matrix[i,j] > thresh else "black",size=15)  # 显示对应的数字
     plt.ylabel('Real label')
     plt.xlabel('Prediction')
     plt.tight_layout()
-    plt.savefig(addr, bbox_inches='tight')
+    plt.savefig(addr, bbox_inches='tight',format='svg')

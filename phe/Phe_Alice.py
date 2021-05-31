@@ -12,8 +12,8 @@ class Phe_Alice:
 
     def encrypt_weights(self,model):
         coef = model.coef_[0, :]
-        print(coef.shape)
-        print(model.intercept_)
+        #print(coef.shape)
+        #print(model.intercept_)
         encrypted_weights = [self.pubkey.encrypt(coef[i])
                              for i in range(coef.shape[0])]
         encrypted_intercept = self.pubkey.encrypt(model.intercept_[0])

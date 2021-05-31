@@ -11,4 +11,5 @@ def draw_ROC_curve(model_name,title,false_positive_rate, true_positive_rate,addr
     plt.ylabel('True positive rate')
     plt.xlabel('False positive rate')
     plt.legend()
-    plt.savefig(addr)
+    plt.savefig(addr,format='svg')
+    plt.close()

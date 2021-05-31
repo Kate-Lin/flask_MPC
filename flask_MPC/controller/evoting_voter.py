@@ -141,4 +141,4 @@ def save_sum():
     enc_s = enc_sum(sender=ID,val=total)
     db.session.add(enc_s)
     db.session.commit()
-    return '本地计票完成'
+    return render_template('success.html',message='本地计票完成')
